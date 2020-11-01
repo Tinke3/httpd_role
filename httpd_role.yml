@@ -1,0 +1,15 @@
+---
+- name: httpd-palvelimen asennus
+  hosts: node2
+  become: true
+
+  pre_tasks:
+    - debug:
+        msg: “Aloitetaan asennus…”
+
+  roles:
+    - httpd_vhost
+
+  post_tasks:
+    - debug:
+        msg: “…asennus on valmis!”

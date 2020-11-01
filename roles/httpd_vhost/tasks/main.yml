@@ -1,0 +1,30 @@
+--- 
+- name: Asennetaan httpd
+  dnf:
+    name: httpd
+    state: latest
+
+- name: Käynnistetään ja enabloidaan httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Konfiguroi vhost templatesta
+  template:
+    src: vhost.conf.j2
+    dest: /etc/httpd/conf.d/vhost.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+   - restart_httpd
+- name: Varmistetaan että vhost hakemosto on olemassa
+  file:
+    path: "/var/www/vhosts/{{ ansible_hostname }}"
+    state: directory
+
+- name: Kopioi index.html
+  copy:
+    src: index.html
+    dest: "/var/www/vhosts/{{ ansible_hostname }}/index.html"
