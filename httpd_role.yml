@@ -1,6 +1,6 @@
 ---
 - name: httpd-palvelimen asennus
-  hosts: node2
+  hosts: all
   become: true
 
   pre_tasks:
