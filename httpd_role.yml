@@ -9,6 +9,7 @@
 
   roles:
     - httpd_vhost
+    - palomuuri
 
   post_tasks:
     - debug:
